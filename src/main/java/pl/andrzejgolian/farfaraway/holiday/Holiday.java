@@ -1,29 +1,21 @@
 package pl.andrzejgolian.farfaraway.holiday;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import pl.andrzejgolian.farfaraway.address.Address;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
-public class Holiday {
+@Table(name = "holidays")
+public class Holiday implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_holiday")
     private Long id;
-
-    @Column(nullable = false)
-    private FlyFrom flyFrom;
-
-    @Column(nullable = false)
-    private Destination destination;
-
-    @Column(nullable = false)
-    private LocalDateTime departureDate;
-
-    @Column(nullable = false)
-    private LocalDateTime arrivalDate;
-
-    @Column(nullable = false)
-    private Integer daysAmount;
 
     @Column(nullable = false)
     private Double adultPrice;
@@ -31,30 +23,55 @@ public class Holiday {
     @Column(nullable = false)
     private Double childPrice;
 
-    @Column(nullable = false)
+    @Column
     private Boolean promoted;
+
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate flightDate;
+
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate returnDate;
+
+    @Column(nullable = false)
+    private Integer daysAmount;
+
+    @Column(name = "board_type")
+    @Enumerated(EnumType.STRING)
+    private Board board;
 
     @Column(nullable = false)
     private Integer adultAmount;
 
+    @Column
     private Integer childAmount;
 
-    public Holiday(FlyFrom flyFrom, Destination destination, LocalDateTime departureDate, LocalDateTime arrivalDate,
-                   Integer daysAmount, Double adultPrice, Double childPrice,
-                   Boolean promoted, Integer adultAmount, Integer childAmount) {
-        this.flyFrom = flyFrom;
-        this.destination = destination;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
-        this.daysAmount = daysAmount;
+    @ManyToOne
+    @JoinColumn(name = "id_address")
+    private Address address;
+
+    public Holiday(Double adultPrice, Double childPrice, Boolean promoted,
+                   LocalDate flightDate, LocalDate returnDate,
+                   Integer daysAmount, Integer adultAmount, Integer childAmount, Address address, Board board) {
         this.adultPrice = adultPrice;
         this.childPrice = childPrice;
         this.promoted = promoted;
+        this.flightDate = flightDate;
+        this.returnDate = returnDate;
+        this.daysAmount = daysAmount;
+        this.board = board;
         this.adultAmount = adultAmount;
         this.childAmount = childAmount;
+        this.address = address;
     }
 
-    public Holiday() {}
+    public Holiday() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -62,46 +79,6 @@ public class Holiday {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public FlyFrom getFlyFrom() {
-        return flyFrom;
-    }
-
-    public void setFlyFrom(FlyFrom flyFrom) {
-        this.flyFrom = flyFrom;
-    }
-
-    public Destination getDestination() {
-        return destination;
-    }
-
-    public void setDestination(Destination destination) {
-        this.destination = destination;
-    }
-
-    public LocalDateTime getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(LocalDateTime departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public LocalDateTime getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(LocalDateTime arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
-
-    public Integer getDaysAmount() {
-        return daysAmount;
-    }
-
-    public void setDaysAmount(Integer daysAmount) {
-        this.daysAmount = daysAmount;
     }
 
     public Double getAdultPrice() {
@@ -128,6 +105,30 @@ public class Holiday {
         this.promoted = promoted;
     }
 
+    public LocalDate getFlightDate() {
+        return flightDate;
+    }
+
+    public void setFlightDate(LocalDate flightDate) {
+        this.flightDate = flightDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public Integer getDaysAmount() {
+        return daysAmount;
+    }
+
+    public void setDaysAmount(Integer daysAmount) {
+        this.daysAmount = daysAmount;
+    }
+
     public Integer getAdultAmount() {
         return adultAmount;
     }
@@ -144,20 +145,35 @@ public class Holiday {
         this.childAmount = childAmount;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
     @Override
     public String toString() {
         return "Holiday{" +
                 "id=" + id +
-                ", flyFrom=" + flyFrom +
-                ", destination=" + destination +
-                ", departureDate=" + departureDate +
-                ", arrivalDate=" + arrivalDate +
-                ", daysAmount=" + daysAmount +
                 ", adultPrice=" + adultPrice +
                 ", childPrice=" + childPrice +
                 ", promoted=" + promoted +
+                ", flightDate=" + flightDate +
+                ", returnDate=" + returnDate +
+                ", daysAmount=" + daysAmount +
                 ", adultAmount=" + adultAmount +
                 ", childAmount=" + childAmount +
+                ", address=" + address +
                 '}';
     }
 }

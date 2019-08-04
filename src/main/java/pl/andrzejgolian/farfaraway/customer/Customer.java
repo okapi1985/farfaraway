@@ -1,31 +1,32 @@
-package pl.andrzejgolian.farfaraway.holiday;
+package pl.andrzejgolian.farfaraway.customer;
+
+import pl.andrzejgolian.farfaraway.purchase.HolidayPurchase;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "customers")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_customer")
     private Long id;
 
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
+    private Integer age;
 
-    @Column(nullable = false)
-    private String age;
+    @OneToMany
+    @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
+    private List<HolidayPurchase> holidayPurchases;
 
-    @Column(nullable = false)
-    private Long holidayPurchaseId; //czy konieczny jest tu klucz?
-
-    public Customer(String firstName, String lastName, String age, Long holidayPurchaseId) {
+    public Customer(String firstName, String lastName, Integer age, List<HolidayPurchase> holidayPurchases) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.holidayPurchaseId = holidayPurchaseId;
+        this.holidayPurchases = holidayPurchases;
     }
 
     public Customer() {}
@@ -54,20 +55,20 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public Long getHolidayPurchaseId() {
-        return holidayPurchaseId;
+    public List<HolidayPurchase> getHolidayPurchases() {
+        return holidayPurchases;
     }
 
-    public void setHolidayPurchaseId(Long holidayPurchaseId) {
-        this.holidayPurchaseId = holidayPurchaseId;
+    public void setHolidayPurchases(List<HolidayPurchase> holidayPurchases) {
+        this.holidayPurchases = holidayPurchases;
     }
 
     @Override
@@ -76,8 +77,8 @@ public class Customer {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age='" + age + '\'' +
-                ", holidayPurchaseId=" + holidayPurchaseId +
+                ", age=" + age +
+                ", holidayPurchases=" + holidayPurchases +
                 '}';
     }
 }

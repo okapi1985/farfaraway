@@ -1,31 +1,32 @@
-package pl.andrzejgolian.farfaraway.holiday;
+package pl.andrzejgolian.farfaraway.purchase;
+
+import pl.andrzejgolian.farfaraway.customer.Customer;
+import pl.andrzejgolian.farfaraway.holiday.Holiday;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "holiday_purchases")
 public class HolidayPurchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_holiday_purchase")
     private Long id;
 
-    @Column(nullable = false)
+    private Double totalAmount;
+
+    @OneToOne
     private Holiday holiday;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_customer")
     private Customer customer;
 
-    @Column(nullable = false)
-    private Long totalAmount;
-
-    @Column(nullable = false)
-    private Long holidayId;
-
-    public HolidayPurchase(Holiday holiday, Customer customer, Long totalAmount, Long holidayId) {
+    public HolidayPurchase(Double totalAmount, Holiday holiday, Customer customer) {
+        this.totalAmount = totalAmount;
         this.holiday = holiday;
         this.customer = customer;
-        this.totalAmount = totalAmount;
-        this.holidayId = holidayId;
     }
 
     public HolidayPurchase() {}
@@ -36,6 +37,14 @@ public class HolidayPurchase {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public Holiday getHoliday() {
@@ -54,30 +63,13 @@ public class HolidayPurchase {
         this.customer = customer;
     }
 
-    public Long getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Long totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public Long getHolidayId() {
-        return holidayId;
-    }
-
-    public void setHolidayId(Long holidayId) {
-        this.holidayId = holidayId;
-    }
-
     @Override
     public String toString() {
         return "HolidayPurchase{" +
                 "id=" + id +
+                ", totalAmount=" + totalAmount +
                 ", holiday=" + holiday +
                 ", customer=" + customer +
-                ", totalAmount=" + totalAmount +
-                ", holidayId=" + holidayId +
                 '}';
     }
 }
