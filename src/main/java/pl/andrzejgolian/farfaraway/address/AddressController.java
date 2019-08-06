@@ -23,7 +23,7 @@ public class AddressController {
         List<Address> addressList = addressService.getAddresses();
         model.addAttribute("addresses",addressList);
 
-        return "/address-list";
+        return "/address/address-list";
     }
 
     @GetMapping("/showAddressForm")
@@ -31,7 +31,7 @@ public class AddressController {
         Address address = new Address();
         model.addAttribute("address",address);
 
-        return "/address-form";
+        return "/address/address-form";
     }
 
     @PostMapping("/createAddress")
@@ -39,7 +39,7 @@ public class AddressController {
 
         addressService.createAddress(address);
 
-        return "redirect:/addressList";
+        return "redirect:/address/addressList";
     }
 
     @GetMapping("/updateAddressForm")
@@ -48,13 +48,13 @@ public class AddressController {
         Address address = addressService.getAddress(addressId);
         model.addAttribute("address", address);
 
-        return "/address-form";
+        return "/address/address-form";
     }
 
-    @GetMapping
+    @GetMapping("/deleteAddress")
     public String deleteAddress(@RequestParam("addressId") long addressId){
         addressService.delete(addressId);
 
-        return "redirect:/addressList";
+        return "redirect:/address/addressList";
     }
 }

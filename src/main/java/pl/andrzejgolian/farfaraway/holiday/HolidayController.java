@@ -58,4 +58,13 @@ public class HolidayController {
         return "redirect:/holiday/list";
     }
 
+//    @GetMapping("/{id}")
+//    String displayHoliday(@PathVariable Long id, Model model) {
+//        Holiday holiday = holidayService.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Holiday not found"));
+//        model.addAttribute("holiday", holiday);
+//
+//        return "/holiday/holiday-details";
+//    }
+
 }

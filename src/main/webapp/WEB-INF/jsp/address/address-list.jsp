@@ -1,16 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: andrz
-  Date: 04.08.2019
-  Time: 11:48
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Lista adresów</title>
 </head>
 <body>
-
+<h1>Adresy</h1>
+<a href="/address/showAddressForm">Dodaj Adres</a><br/>
+<c:forEach var="address" items="${addresses}">
+    <div>
+        <a href="/address/${address.id}">${address.city}</a> - ${address.country}
+    </div>
+</c:forEach>
 </body>
 </html>
