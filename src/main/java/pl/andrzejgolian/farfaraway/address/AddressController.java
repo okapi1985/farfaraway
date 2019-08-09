@@ -51,7 +51,7 @@ public class AddressController {
         return "/address/address-form";
     }
 
-    @GetMapping("/deleteAddress")
+    @GetMapping("/{addressId}/deleteAddress")
     public String deleteAddress(@RequestParam("addressId") long addressId){
         addressService.delete(addressId);
 
