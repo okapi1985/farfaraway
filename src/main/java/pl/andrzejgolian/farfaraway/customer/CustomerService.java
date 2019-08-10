@@ -1,7 +1,6 @@
 package pl.andrzejgolian.farfaraway.customer;
 
 import org.springframework.stereotype.Service;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
 
 import java.util.List;
 
@@ -24,10 +23,10 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public Customer getCustomer(long customerId) throws ItemNotFoundException {
+    public Customer getCustomer(long customerId) throws RuntimeException {
 
         return customerRepository.findById(customerId)
-                .orElseThrow(() -> new ItemNotFoundException(customerId));
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono klienta"));
     }
 
     public void delete(long customerId) {

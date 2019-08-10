@@ -8,7 +8,8 @@
 <a href="/holiday/showForm">Dodaj Wycieczkę</a>
 <a href="/address/showAddressForm">Dodaj Adres</a>
 <a href="/place/showPlaceForm">Dodaj Miejsce</a><br/><br/>
-<a href="/address/addressList">Lista adresów</a><br/>
+<a href="/address/addressList">Lista adresów</a><br/><br/>
+<a href="/admin">Wróć</a><br/>
 <h2>Dodaj nowy adres:</h2>
 <form action="/address/createAddress" method="post">
     <label>Kontynent:</label>

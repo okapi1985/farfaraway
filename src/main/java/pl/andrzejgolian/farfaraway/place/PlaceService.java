@@ -1,7 +1,7 @@
 package pl.andrzejgolian.farfaraway.place;
 
 import org.springframework.stereotype.Service;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,12 +22,13 @@ public class PlaceService {
         placeRepository.save(place);
     }
 
-    public Place getPlace(long placeId) throws ItemNotFoundException {
-        return placeRepository.findById(placeId)
-                .orElseThrow(() -> new ItemNotFoundException(placeId));
-    }
-
+    @Transactional
     public void delete(long placeId) {
         placeRepository.deleteById(placeId);
+    }
+
+    public Place findById(Long id) {
+
+        return placeRepository.findById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono miejsca"));
     }
 }

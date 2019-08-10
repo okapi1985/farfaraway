@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
 
 import java.util.List;
 
@@ -42,19 +41,27 @@ public class AddressController {
         return "redirect:/address/addressList";
     }
 
-    @GetMapping("/updateAddressForm")
-    public String showAddressFormForUpdate(@RequestParam("addressId") long addressId,
-                                           Model model) throws ItemNotFoundException {
-        Address address = addressService.getAddress(addressId);
+    @GetMapping("/{addressId}/updateAddressForm")
+    public String showAddressFormForUpdate(@PathVariable("addressId") long addressId,
+                                           Model model) throws RuntimeException {
+        Address address = addressService.findById(addressId);
         model.addAttribute("address", address);
 
         return "/address/address-form";
     }
 
     @GetMapping("/{addressId}/deleteAddress")
-    public String deleteAddress(@RequestParam("addressId") long addressId){
+    public String deleteAddress(@PathVariable("addressId") Long addressId){
         addressService.delete(addressId);
 
         return "redirect:/address/addressList";
+    }
+
+    @GetMapping("/{id}")
+    String displayAddress(@PathVariable Long id, Model model) {
+        Address address = addressService.findById(id);
+        model.addAttribute("address", address);
+
+        return "/address/address-details";
     }
 }

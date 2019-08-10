@@ -1,7 +1,6 @@
 package pl.andrzejgolian.farfaraway.purchase;
 
 import org.springframework.stereotype.Service;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
 
 import java.util.List;
 
@@ -24,10 +23,10 @@ public class HolidayPurchaseService {
         return holidayPurchaseRepository.findAll();
     }
 
-    public HolidayPurchase getHolidayPurchase(long holidayPurchaseId) throws ItemNotFoundException {
+    public HolidayPurchase getHolidayPurchase(long holidayPurchaseId) throws RuntimeException {
 
         return holidayPurchaseRepository.findById(holidayPurchaseId)
-                .orElseThrow(() -> new ItemNotFoundException(holidayPurchaseId));
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono wycieczki"));
     }
 
     public void delete(long holidayPurchaseId) {

@@ -8,7 +8,8 @@
 <a href="/holiday/showForm">Dodaj Wycieczkę</a>
 <a href="/address/showAddressForm">Dodaj Adres</a>
 <a href="/place/showPlaceForm">Dodaj Miejsce</a><br/><br/>
-<a href="/place/placeList">Lista Miejsc</a><br/>
+<a href="/place/placeList">Lista Miejsc</a><br/><br/>
+<a href="/admin">Wróć</a><br/>
 <h2>Dodaj nowe miejsce</h2>
 <form action="/place/createPlace" method="post">
     <label>Hotel:</label>

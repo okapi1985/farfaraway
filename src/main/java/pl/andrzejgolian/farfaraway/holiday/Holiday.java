@@ -2,6 +2,7 @@ package pl.andrzejgolian.farfaraway.holiday;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.andrzejgolian.farfaraway.address.Address;
+import pl.andrzejgolian.farfaraway.place.Place;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -51,9 +52,12 @@ public class Holiday implements Serializable {
     @JoinColumn(name = "id_address")
     private Address address;
 
-    public Holiday(Double adultPrice, Double childPrice, Boolean promoted,
-                   LocalDate flightDate, LocalDate returnDate,
-                   Integer daysAmount, Integer adultAmount, Integer childAmount, Address address, Board board) {
+    @OneToOne
+    private Place place;
+
+    public Holiday(Double adultPrice, Double childPrice, Boolean promoted, LocalDate flightDate, LocalDate returnDate,
+                   Integer daysAmount, Board board, Integer adultAmount, Integer childAmount,
+                   Address address, Place place) {
         this.adultPrice = adultPrice;
         this.childPrice = childPrice;
         this.promoted = promoted;
@@ -64,6 +68,7 @@ public class Holiday implements Serializable {
         this.adultAmount = adultAmount;
         this.childAmount = childAmount;
         this.address = address;
+        this.place = place;
     }
 
     public Holiday() {
@@ -161,6 +166,14 @@ public class Holiday implements Serializable {
         this.board = board;
     }
 
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
     @Override
     public String toString() {
         return "Holiday{" +
@@ -171,9 +184,11 @@ public class Holiday implements Serializable {
                 ", flightDate=" + flightDate +
                 ", returnDate=" + returnDate +
                 ", daysAmount=" + daysAmount +
+                ", board=" + board +
                 ", adultAmount=" + adultAmount +
                 ", childAmount=" + childAmount +
                 ", address=" + address +
+                ", place=" + place +
                 '}';
     }
 }

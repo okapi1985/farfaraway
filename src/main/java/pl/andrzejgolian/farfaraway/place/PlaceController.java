@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
 
 import java.util.List;
 
@@ -44,17 +43,25 @@ public class PlaceController {
 
     @GetMapping("/updatePlaceForm")
     public String showPlaceFormForUpdate(@RequestParam("placeId") long placeId,
-                                           Model model) throws ItemNotFoundException {
-        Place place = placeService.getPlace(placeId);
+                                           Model model) throws RuntimeException {
+        Place place = placeService.findById(placeId);
         model.addAttribute("place", place);
 
         return "/place/place-form";
     }
 
-    @GetMapping("/placeDelete")
-    public String deletePlace(@RequestParam("placeId") long placeId){
+    @GetMapping("/{placeId}/placeDelete")
+    public String deletePlace(@PathVariable("placeId") Long placeId){
         placeService.delete(placeId);
 
         return "redirect:/place/placeList";
+    }
+
+    @GetMapping("/{id}")
+    String displayAddress(@PathVariable Long id, Model model) {
+        Place place = placeService.findById(id);
+        model.addAttribute("place", place);
+
+        return "/place/place-details";
     }
 }

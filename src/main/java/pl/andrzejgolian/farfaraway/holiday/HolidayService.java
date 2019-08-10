@@ -1,6 +1,7 @@
 package pl.andrzejgolian.farfaraway.holiday;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,12 +22,18 @@ public class HolidayService {
         holidayRepository.save(holiday);
     }
 
-    public Holiday getHoliday(long holidayId) throws ItemNotFoundException{
-        return holidayRepository.findById(holidayId)
-                .orElseThrow(() -> new ItemNotFoundException(holidayId));
-    }
-
+    @Transactional
     public void delete(long holidayId){
         holidayRepository.deleteById(holidayId);
+    }
+
+    public Holiday findById(Long id) {
+
+        return holidayRepository.findById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono wycieczki"));
+    }
+
+    @Transactional
+    public Holiday updateHoliday(Holiday holiday){
+        return holidayRepository.save(holiday);
     }
 }

@@ -99,13 +99,10 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
                 ", continent=" + continent +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", airport='" + airport + '\'' +
-                ", holidays=" + holidays +
-                ", places=" + places +
                 '}';
     }
 }

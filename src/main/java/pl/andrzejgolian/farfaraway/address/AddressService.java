@@ -1,8 +1,8 @@
 package pl.andrzejgolian.farfaraway.address;
 
 import org.springframework.stereotype.Service;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,12 +22,14 @@ public class AddressService {
         addressRepository.save(address);
     }
 
-    public Address getAddress(long addressId) throws ItemNotFoundException {
-        return addressRepository.findById(addressId)
-                .orElseThrow(() -> new ItemNotFoundException(addressId));
+    @Transactional
+    public void delete(Long addressId) {
+        addressRepository.deleteById(addressId);
     }
 
-    public void delete(long addressId) {
-        addressRepository.deleteById(addressId);
+    @Transactional
+    public Address findById(Long id) {
+
+        return addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono adresu"));
     }
 }

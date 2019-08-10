@@ -10,14 +10,21 @@
 <a href="/holiday/showForm">Dodaj Wycieczkę</a>
 <a href="/address/showAddressForm">Dodaj Adres</a>
 <a href="/place/showPlaceForm">Dodaj Miejsce</a><br/><br/>
-<a href="/holiday/list">Lista wycieczek</a><br/>
+<a href="/holiday/list">Lista wycieczek</a><br/><br/>
+<a href="/admin">Wróć</a><br/>
 <h2>Dodaj nową wycieczkę</h2>
 <form:form method="post" action="/holiday/createHoliday" modelAttribute="holiday" enctype="multipart/form-data"
            role="form">
     <label>Miejsce:</label>
-    <form:select name="address" path="address">
+    <form:select id="address" name="address" path="address">
         <c:forEach items="${addresses}" var="address">
-            <option value="${address}">${address.country} ${address.city} ${address.airport}</option>
+            <form:option value="${address.id}" label="${address.country}, ${address.city}, ${address.airport}" />
+        </c:forEach>
+    </form:select><br/><br/>
+    <label>Hotel:</label>
+    <form:select id="place" name="place" path="place">
+        <c:forEach items="${places}" var="place">
+            <form:option value="${place.id}" label="${place.hotel}" />
         </c:forEach>
     </form:select><br/><br/>
     <label>Cena za dorosłego:</label>

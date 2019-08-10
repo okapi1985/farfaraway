@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.andrzejgolian.farfaraway.holiday.ItemNotFoundException;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class CustomerController {
 
     @GetMapping("/updateCustomerForm")
     public String showCustomerFormForUpdate(@RequestParam("customerId") long customerId,
-                                         Model model) throws ItemNotFoundException {
+                                         Model model) throws RuntimeException {
         Customer customer = customerService.getCustomer(customerId);
         model.addAttribute("customer", customer);
 

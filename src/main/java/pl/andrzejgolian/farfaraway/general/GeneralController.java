@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class GeneralController {
 
-    @RequestMapping("/")
+    @RequestMapping("/farfaraway")
     public String home(){
 
         return "/main/main";
     }
 
-    @RequestMapping("/secret")
-    public String secret(){
+    @RequestMapping("/admin")
+    public String admin(){
 
-        return "/main/secret";
+        return "/main/admin";
     }
 }

@@ -15,9 +15,12 @@
 <%--    </form>--%>
 <%--</div>--%>
 <a href="/holiday/showForm">Dodaj Wycieczke</a><br/>
+<a href="/admin">Wróć</a><br/><br/>
 <c:forEach var="holiday" items="${holidays}">
     <div>
         <a href="/holiday/${holiday.id}">${holiday.adultPrice}</a> - ${holiday.flightDate}
+        <a href="/holiday/updateForm/${holiday.id}">Edytuj</a>
+        <a href="/holiday/${holiday.id}/delete">Usuń</a>
     </div>
 </c:forEach>
 </body>
