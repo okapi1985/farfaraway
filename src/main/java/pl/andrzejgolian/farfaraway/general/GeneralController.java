@@ -17,4 +17,10 @@ public class GeneralController {
 
         return "/main/admin";
     }
+
+    @RequestMapping("/main/registration")
+    public String registration(){
+
+        return "/main/registration";
+    }
 }

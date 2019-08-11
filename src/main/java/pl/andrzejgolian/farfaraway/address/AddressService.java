@@ -27,9 +27,19 @@ public class AddressService {
         addressRepository.deleteById(addressId);
     }
 
-    @Transactional
     public Address findById(Long id) {
 
         return addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono adresu"));
+    }
+
+    public Address updateAddress(Address address) {
+        Address addressToUpdate = findById(address.getId());
+
+        addressToUpdate.setContinent(address.getContinent());
+        addressToUpdate.setCountry(address.getCountry());
+        addressToUpdate.setCity(address.getCity());
+        addressToUpdate.setAirport(address.getAirport());
+
+        return addressRepository.save(addressToUpdate);
     }
 }

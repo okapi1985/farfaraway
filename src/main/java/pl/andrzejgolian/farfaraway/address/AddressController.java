@@ -34,18 +34,22 @@ public class AddressController {
     }
 
     @PostMapping("/createAddress")
-    public String createAddress(@ModelAttribute Address address, BindingResult bindingResult){
-
-        addressService.createAddress(address);
+    public String createAddress(@ModelAttribute("address") Address address, BindingResult bindingResult, Model model){
+        System.out.println(bindingResult);
+        if (address.getId() != null) {
+            addressService.updateAddress(address);
+        } else {
+            addressService.createAddress(address);
+        }
 
         return "redirect:/address/addressList";
     }
 
-    @GetMapping("/{addressId}/updateAddressForm")
-    public String showAddressFormForUpdate(@PathVariable("addressId") long addressId,
+    @GetMapping("/updateAddressForm/{addressId}")
+    public String showAddressFormForUpdate(@PathVariable Long addressId,
                                            Model model) throws RuntimeException {
-        Address address = addressService.findById(addressId);
-        model.addAttribute("address", address);
+        Address ad = addressService.findById(addressId);
+        model.addAttribute("address", ad);
 
         return "/address/address-form";
     }

@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1>Welocme to farfaraway app</h1>
-<a href="/admin">Go to secured area</a>
+<a href="/admin">Zaloguj do serwisu</a><br/>
+<a href="/customer/showCustomerForm">Zarejestruj</a>
 </body>
 </html>

@@ -27,6 +27,9 @@
             <form:option value="${place.id}" label="${place.hotel}" />
         </c:forEach>
     </form:select><br/><br/>
+    <c:if test="${holiday.id != null}">
+        <form:input path="id" type="hidden" name="id" value="${holiday.id}"/>
+    </c:if>
     <label>Cena za dorosłego:</label>
     <form:input path="adultPrice" type="number" name="adultPrice"/><br/><br/>
     <label>Cena za dziecko:</label>
@@ -49,14 +52,7 @@
     <label>Liczba dzieci:</label>
     <form:input type="number" name="childAmount" path="childAmount"/><br/><br/>
 
-<%--    <form:select name="place" path="place">--%>
-<%--        <c:forEach items="${places}" var="place">--%>
-<%--            <option value="${place}">${place.hotel}</option>--%>
-<%--        </c:forEach>--%>
-<%--    </form:select><br/><br/>--%>
-<%--    Nie mam ustawionego pola typu Place w klasie Holiday. Czy tak ma/może być?--%>
-
-    <input type="submit" name="submit" value="Dodaj"/>
+    <input type="submit" value="Zapisz"/>
 </form:form>
 </body>
 </html>

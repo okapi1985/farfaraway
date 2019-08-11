@@ -34,18 +34,22 @@ public class PlaceController {
     }
 
     @PostMapping("/createPlace")
-    public String createPlace(@ModelAttribute Place place, BindingResult bindingResult){
-
-        placeService.createPlace(place);
+    public String createPlace(@ModelAttribute("place") Place place, BindingResult bindingResult, Model model){
+        System.out.println(bindingResult);
+        if(place.getId() != null) {
+            placeService.updatePlace(place);
+        } else {
+            placeService.createPlace(place);
+        }
 
         return "redirect:/place/placeList";
     }
 
-    @GetMapping("/updatePlaceForm")
-    public String showPlaceFormForUpdate(@RequestParam("placeId") long placeId,
+    @GetMapping("/updatePlaceForm/{placeId}")
+    public String showPlaceFormForUpdate(@PathVariable Long placeId,
                                            Model model) throws RuntimeException {
-        Place place = placeService.findById(placeId);
-        model.addAttribute("place", place);
+        Place pl = placeService.findById(placeId);
+        model.addAttribute("place", pl);
 
         return "/place/place-form";
     }

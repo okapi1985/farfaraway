@@ -1,9 +1,14 @@
 package pl.andrzejgolian.farfaraway.customer;
 
 import pl.andrzejgolian.farfaraway.purchase.HolidayPurchase;
+import pl.andrzejgolian.farfaraway.role.CustomerRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -16,20 +21,27 @@ public class Customer {
 
     private String firstName;
     private String lastName;
-    private Integer age;
+    private LocalDate dob;
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<CustomerRole> roles = new HashSet<>();
 
     @OneToMany
     @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
     private List<HolidayPurchase> holidayPurchases;
 
-    public Customer(String firstName, String lastName, Integer age, String email, String password, List<HolidayPurchase> holidayPurchases) {
+    public Customer(String firstName, String lastName, LocalDate dob, String email, String password,
+                    Set<CustomerRole> roles, List<HolidayPurchase> holidayPurchases) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dob = dob;
         this.email = email;
         this.password = password;
+        this.roles = roles;
         this.holidayPurchases = holidayPurchases;
     }
 
@@ -59,12 +71,12 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getDob() {
+        return dob;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 
     public String getEmail() {
@@ -91,15 +103,24 @@ public class Customer {
         this.holidayPurchases = holidayPurchases;
     }
 
+    public Set<CustomerRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<CustomerRole> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
+                ", dob=" + dob +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", roles=" + roles +
                 ", holidayPurchases=" + holidayPurchases +
                 '}';
     }

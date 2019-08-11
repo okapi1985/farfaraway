@@ -43,11 +43,11 @@ public class HolidayController {
     }
 
     @PostMapping("/createHoliday")
-    public String createHoliday(@ModelAttribute("holiday") Holiday holiday, BindingResult bindingResult){
+    public String createHoliday(@ModelAttribute("holiday") Holiday holiday, BindingResult bindingResult, Model model){
         System.out.println(bindingResult);
-        if(holiday.getId() != null){
+        if(holiday.getId() != null) {
             holidayService.updateHoliday(holiday);
-        }else {
+        } else {
             holidayService.create(holiday);
         }
 
@@ -55,10 +55,13 @@ public class HolidayController {
     }
 
     @GetMapping("/updateForm/{holidayId}")
-    public String showFormForUpdate(@PathVariable Long holidayId, Model model) throws RuntimeException{
-        Holiday cH = holidayService.findById(holidayId);
-        model.addAttribute("holiday", cH);
+    public String showFormForUpdate(@PathVariable Long holidayId,
+                                    Model model) throws RuntimeException{
+        Holiday hol = holidayService.findById(holidayId);
+        model.addAttribute("holiday", hol);
 
+        model.addAttribute("addresses", addressRepository.findAll());
+        model.addAttribute("places", placeRepository.findAll());
         return "/holiday/holiday-form";
     }
 

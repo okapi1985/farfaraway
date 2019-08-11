@@ -32,8 +32,21 @@ public class HolidayService {
         return holidayRepository.findById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono wycieczki"));
     }
 
-    @Transactional
     public Holiday updateHoliday(Holiday holiday){
-        return holidayRepository.save(holiday);
+        Holiday holidayToUpdate = findById(holiday.getId());
+
+        holidayToUpdate.setAdultPrice(holiday.getAdultPrice());
+        holidayToUpdate.setChildPrice(holiday.getChildPrice());
+        holidayToUpdate.setPromoted(holiday.getPromoted());
+        holidayToUpdate.setFlightDate(holiday.getFlightDate());
+        holidayToUpdate.setReturnDate(holiday.getReturnDate());
+        holidayToUpdate.setDaysAmount(holiday.getDaysAmount());
+        holidayToUpdate.setBoard(holiday.getBoard());
+        holidayToUpdate.setAdultAmount(holiday.getAdultAmount());
+        holidayToUpdate.setChildAmount(holiday.getChildAmount());
+        holidayToUpdate.setAddress(holiday.getAddress());
+        holidayToUpdate.setPlace(holiday.getPlace());
+
+        return holidayRepository.save(holidayToUpdate);
     }
 }

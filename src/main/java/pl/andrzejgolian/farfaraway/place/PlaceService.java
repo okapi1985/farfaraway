@@ -31,4 +31,13 @@ public class PlaceService {
 
         return placeRepository.findById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono miejsca"));
     }
+
+    public Place updatePlace(Place place) {
+        Place placeToUpdate = findById(place.getId());
+
+        placeToUpdate.setHotel(place.getHotel());
+        placeToUpdate.setDescription(place.getDescription());
+
+        return placeRepository.save(placeToUpdate);
+    }
 }
