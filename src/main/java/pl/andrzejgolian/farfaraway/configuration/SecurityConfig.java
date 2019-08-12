@@ -24,12 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.customerService = customerService;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.userDetailsService(customerService)
-                .passwordEncoder(passwordEncoder);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth)
+//            throws Exception {
+//        auth.userDetailsService(customerService)
+//                .passwordEncoder(passwordEncoder);
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
