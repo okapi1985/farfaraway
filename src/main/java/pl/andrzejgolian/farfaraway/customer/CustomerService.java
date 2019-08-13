@@ -1,9 +1,11 @@
 package pl.andrzejgolian.farfaraway.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,41 +18,37 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private static final String DEFAULT_ROLE = "ROLE_ADMIN";
+//    private static final String DEFAULT_ROLE = "ROLE_ADMIN";
     private CustomerRepository customerRepository;
-    private CustomerRoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public CustomerService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+//    private CustomerRoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Autowired
     public void setCustomerRepository(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
-    @Autowired
-    public void setRoleRepository(CustomerRoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+//    @Autowired
+//    public void setRoleRepository(CustomerRoleRepository roleRepository) {
+//        this.roleRepository = roleRepository;
+//    }
 
-    public void addWithDefaultRole(Customer customer){
-        CustomerRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
-        customer.getRoles().add(defaultRole);
-        String passwordHash = passwordEncoder.encode(customer.getPassword());
-        customer.setPassword(passwordHash);
-        customerRepository.save(customer);
+    public CustomerService() {}
 
-    }
+//    public void addWithDefaultRole(Customer customer){
+//        CustomerRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
+//        customer.getRoles().add(defaultRole);
+//        String passwordHash = passwordEncoder.encode(customer.getPassword());
+//        customer.setPassword(passwordHash);
+//        customerRepository.save(customer);
+//    }
 
     public List<Customer> getCustomers() {
 
         return customerRepository.findAll();
     }
 
-    public void createCustomer(Customer customer) {
+    public void create(Customer customer) {
         customer.setEmail(customer.getEmail());
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customerRepository.save(customer);

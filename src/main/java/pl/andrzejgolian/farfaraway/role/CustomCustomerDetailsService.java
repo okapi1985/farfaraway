@@ -6,13 +6,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import pl.andrzejgolian.farfaraway.customer.Customer;
 import pl.andrzejgolian.farfaraway.customer.CustomerRepository;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class CustomCustomerDetailsService implements UserDetailsService {
 
     private CustomerRepository customerRepository;
@@ -27,19 +30,22 @@ public class CustomCustomerDetailsService implements UserDetailsService {
         Customer customer = customerRepository.findByEmail(username);
         if (customer==null)
             throw new UsernameNotFoundException("Nie znaleziono klienta");
-        org.springframework.security.core.userdetails.User userDetails =
-                new org.springframework.security.core.userdetails.User(
-                        customer.getEmail(),
-                        customer.getPassword(),
-                        convertAuthorities(customer.getRoles()));
-        return userDetails;
+
+        return new org.springframework.security.core.userdetails.User
+                (customer.getEmail(),customer.getPassword(), Collections.emptyList());
+//        org.springframework.security.core.userdetails.User userDetails =
+//                new org.springframework.security.core.userdetails.User(
+//                        customer.getEmail(),
+//                        customer.getPassword(),
+//                        convertAuthorities(customer.getRoles()));
+//        return userDetails;
     }
 
-    private Set<GrantedAuthority> convertAuthorities(Set<CustomerRole> customerRoles) {
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        for (CustomerRole ur:customerRoles){
-            authorities.add(new SimpleGrantedAuthority(ur.getRole()));
-        }
-        return authorities;
-    }
+//    private Set<GrantedAuthority> convertAuthorities(Set<CustomerRole> customerRoles) {
+//        Set<GrantedAuthority> authorities = new HashSet<>();
+//        for (CustomerRole ur:customerRoles){
+//            authorities.add(new SimpleGrantedAuthority(ur.getRole()));
+//        }
+//        return authorities;
+//    }
 }

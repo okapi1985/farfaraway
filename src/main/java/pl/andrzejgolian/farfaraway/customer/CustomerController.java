@@ -16,7 +16,6 @@ import java.util.List;
 public class CustomerController {
 
     private CustomerService customerService;
-    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
@@ -51,13 +50,13 @@ public class CustomerController {
         if(customer.getId() != null) {
             customerService.updateCustomer(customer);
         } else {
-//            customerService.createCustomer(customer);
-            if (bindingResult.hasErrors())
-                return "/customer/customer-form";
-            else {
-                customerService.addWithDefaultRole(customer);
-                return "redirect:/main/registration";
-            }
+            customerService.create(customer);
+//            if (bindingResult.hasErrors())
+//                return "/customer/customer-form";
+//            else {
+//                customerService.addWithDefaultRole(customer);
+//                return "redirect:/main/registration";
+//            }
         }
 
         return "redirect:/main/registration";
