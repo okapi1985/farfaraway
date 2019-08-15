@@ -24,6 +24,8 @@ public class HolidayController {
         this.placeRepository = placeRepository;
     }
 
+
+
     @GetMapping("/list")
     public String listHolidays(Model model) {
         List<Holiday> holidayList = holidayService.getHolidays();

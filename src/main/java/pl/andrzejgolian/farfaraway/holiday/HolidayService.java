@@ -49,4 +49,9 @@ public class HolidayService {
 
         return holidayRepository.save(holidayToUpdate);
     }
+
+    public List<Holiday> search(String phrase) {
+
+        return holidayRepository.search(phrase);
+    }
 }
