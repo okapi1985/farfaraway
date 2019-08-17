@@ -20,13 +20,13 @@ public class GeneralController {
 
     @RequestMapping("/farfaraway")
     public String home(@RequestParam(required = false) String phrase, Model model) {
-        if (phrase == null || phrase.isEmpty()){
-            List<Holiday> holidayList = holidayService.getHolidays();
-            model.addAttribute("holidays", holidayList);
-        } else {
-            List<Holiday> holidayList = holidayService.search(phrase);
-            model.addAttribute("holidays", holidayList);
-        }
+//        if (phrase == null || phrase.isEmpty()){
+//            List<Holiday> holidayList = holidayService.getHolidays();
+//            model.addAttribute("holidays", holidayList);
+//        } else {
+//            List<Holiday> holidayList = holidayService.search(phrase);
+//            model.addAttribute("holidays", holidayList);
+//        }
 
         return "/main/main";
     }

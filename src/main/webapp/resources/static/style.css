@@ -1,0 +1,95 @@
+#container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo {
+    background-color: forestgreen;
+    color: yellow;
+    text-align: center;
+    padding: 2%;
+}
+
+#nav {
+    float: left;
+    background-color: yellow;
+    background: url('https://i.ytimg.com/vi/q0ugLbzdmqc/maxresdefault.jpg');
+    background-size: cover;
+    color: black;
+    width: 18%;
+    min-height: 800px;
+    padding: 1%;
+}
+
+#content {
+    float: left;
+    padding: 2%;
+    width: 56%;
+    min-heigh: 800px;
+}
+
+#ad {
+    float: left;
+    background: url('https://www.digmonsters.com/images/vertical-banner.jpg');
+    width: 18%;
+    height: 800px;
+    padding: 1%;
+}
+
+#footer {
+    clear: both;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 1%;
+}
+
+.browser{
+    background-color: rgba(255, 255, 0, 0.51);
+    border: solid #063100 1px;
+}
+
+.head {
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.field {
+    background-color: #626360;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.holidayList {
+    border-collapse: collapse;
+    background-color: #ff1a10;
+    color: #fff;
+}
+
+.mainContainer {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.row {
+    overflow: hidden;
+}
+
+.caption {
+    float: left;
+    width: 100px;
+    background-color: #ab0004;
+    color: white;
+    padding: 10px;
+    border-bottom: 1px solid #063100;
+}
+
+.val {
+    float: left;
+    width: 250px;
+    background-color: #e2ff53;
+    padding: 10px;
+    border-bottom: 1px solid #063100;
+}
+

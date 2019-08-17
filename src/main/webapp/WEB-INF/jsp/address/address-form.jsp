@@ -27,7 +27,7 @@
     <label>SOUTH_AMERICA:</label><input type="radio" name="continent" value="SOUTH_AMERICA"/><br/>
     <label>Kraj:</label>
     <form:input path="country" type="text" name="country"/><br/>
-    <label>Miasto</label>
+    <label>Miasto:</label>
     <form:input path="city" type="text" name="city"/><br/>
     <label>Lotnisko:</label>
     <form:input path="airport" type="text" name="airport"/><br/>

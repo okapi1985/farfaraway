@@ -25,7 +25,6 @@ public class HolidayController {
     }
 
 
-
     @GetMapping("/list")
     public String listHolidays(Model model) {
         List<Holiday> holidayList = holidayService.getHolidays();
@@ -35,7 +34,7 @@ public class HolidayController {
     }
 
     @GetMapping("/showForm")
-    public String showForm(Model model){
+    public String showForm(Model model) {
         Holiday holiday = new Holiday();
         model.addAttribute("holiday", holiday);
         model.addAttribute("addresses", addressRepository.findAll());
@@ -45,9 +44,9 @@ public class HolidayController {
     }
 
     @PostMapping("/createHoliday")
-    public String createHoliday(@ModelAttribute("holiday") Holiday holiday, BindingResult bindingResult, Model model){
+    public String createHoliday(@ModelAttribute("holiday") Holiday holiday, BindingResult bindingResult, Model model) {
         System.out.println(bindingResult);
-        if(holiday.getId() != null) {
+        if (holiday.getId() != null) {
             holidayService.updateHoliday(holiday);
         } else {
             holidayService.create(holiday);
@@ -58,7 +57,7 @@ public class HolidayController {
 
     @GetMapping("/updateForm/{holidayId}")
     public String showFormForUpdate(@PathVariable Long holidayId,
-                                    Model model) throws RuntimeException{
+                                    Model model) throws RuntimeException {
         Holiday hol = holidayService.findById(holidayId);
         model.addAttribute("holiday", hol);
 
@@ -68,7 +67,7 @@ public class HolidayController {
     }
 
     @GetMapping("/{holidayId}/delete")
-    public String deleteHoliday(@PathVariable("holidayId") Long holidayId){
+    public String deleteHoliday(@PathVariable("holidayId") Long holidayId) {
         holidayService.delete(holidayId);
 
         return "redirect:/holiday/list";
@@ -81,5 +80,27 @@ public class HolidayController {
 
         return "/holiday/holiday-details";
     }
+
+    @GetMapping("/foundWhere")
+    String list(@RequestParam String option, @RequestParam(required = false) String phrase, Model model) {
+        if (option.equals("city")) {
+            List<Holiday> holidaysCity = holidayService.searchByCity(phrase);
+            model.addAttribute("holidays", holidaysCity);
+        } else {
+            List<Holiday> holidaysCountry = holidayService.searchByCountry(phrase);
+            model.addAttribute("holidays", holidaysCountry);
+        }
+
+        return "/found/found-list";
+    }
+
+//    @GetMapping("/{id}")
+//    String displayPromoted(@PathVariable Long id,
+//                           Model model){
+//        Holiday holiday = holidayService.findPromoted(id);
+//        model.addAttribute("holiday",holiday);
+//
+//        return "/main/main";
+//    }
 
 }

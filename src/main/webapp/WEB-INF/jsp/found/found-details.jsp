@@ -1,31 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
-    <title>Szczegóły</title>
+    <title>Title</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/static/style.css">
-    <style>
-        /*.row {*/
-        /*    overflow: hidden;*/
-        /*}*/
-
-        /*.caption {*/
-        /*    float: left;*/
-        /*    width: 100px;*/
-        /*    background-color: #ab0004;*/
-        /*    color: white;*/
-        /*    padding: 10px;*/
-        /*    border-bottom: 1px solid #063100;*/
-        /*}*/
-
-        /*.val {*/
-        /*    float: left;*/
-        /*    width: 250px;*/
-        /*    background-color: #e2ff53;*/
-        /*    padding: 10px;*/
-        /*    border-bottom: 1px solid #063100;*/
-        /*}*/
-    </style>
 </head>
 <body>
 <div class="row">
@@ -74,6 +52,5 @@
 </div>
 
 <a href="/purchase/purchase-form">Kup wycieczkę</a><br/><br/>
-<a href="/holiday/list">Lista wycieczek</a>
 </body>
 </html>

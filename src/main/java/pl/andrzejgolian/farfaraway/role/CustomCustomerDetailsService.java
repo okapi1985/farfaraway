@@ -31,21 +31,8 @@ public class CustomCustomerDetailsService implements UserDetailsService {
         if (customer==null)
             throw new UsernameNotFoundException("Nie znaleziono klienta");
 
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + customer.getRole());
         return new org.springframework.security.core.userdetails.User
-                (customer.getEmail(),customer.getPassword(), Collections.emptyList());
-//        org.springframework.security.core.userdetails.User userDetails =
-//                new org.springframework.security.core.userdetails.User(
-//                        customer.getEmail(),
-//                        customer.getPassword(),
-//                        convertAuthorities(customer.getRoles()));
-//        return userDetails;
+                (customer.getEmail(),customer.getPassword(), Collections.singletonList(authority));
     }
-
-//    private Set<GrantedAuthority> convertAuthorities(Set<CustomerRole> customerRoles) {
-//        Set<GrantedAuthority> authorities = new HashSet<>();
-//        for (CustomerRole ur:customerRoles){
-//            authorities.add(new SimpleGrantedAuthority(ur.getRole()));
-//        }
-//        return authorities;
-//    }
 }

@@ -1,14 +1,11 @@
 package pl.andrzejgolian.farfaraway.customer;
 
 import pl.andrzejgolian.farfaraway.purchase.HolidayPurchase;
-import pl.andrzejgolian.farfaraway.role.CustomerRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -27,21 +24,20 @@ public class Customer {
     @NotEmpty
     private String password;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<CustomerRole> roles = new HashSet<>();
+    private String role;
 
     @OneToMany
     @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
     private List<HolidayPurchase> holidayPurchases;
 
     public Customer(String firstName, String lastName, LocalDate dob, String email, String password,
-                    Set<CustomerRole> roles, List<HolidayPurchase> holidayPurchases) {
+                    String role, List<HolidayPurchase> holidayPurchases) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
         this.holidayPurchases = holidayPurchases;
     }
 
@@ -103,14 +99,6 @@ public class Customer {
         this.holidayPurchases = holidayPurchases;
     }
 
-    public Set<CustomerRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<CustomerRole> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -120,8 +108,15 @@ public class Customer {
                 ", dob=" + dob +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
                 ", holidayPurchases=" + holidayPurchases +
                 '}';
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

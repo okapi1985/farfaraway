@@ -1,37 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Lista wycieczek</title>
+    <title>Title</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/static/style.css">
-    <style>
-        /*.head {*/
-        /*    border: 1px solid black;*/
-        /*    padding: 20px;*/
-        /*}*/
-
-        /*.field {*/
-        /*    background-color: #626360;*/
-        /*    border: 1px solid black;*/
-        /*    padding: 20px;*/
-        /*}*/
-
-        /*.holidayList {*/
-        /*    border-collapse: collapse;*/
-        /*    background-color: #ff1a10;*/
-        /*    color: #fff;*/
-        /*}*/
-
-        /*.mainContainer {*/
-        /*    width: 80%;*/
-        /*    margin: 0 auto;*/
-        /*}*/
-    </style>
 </head>
 <body>
-<h1>Wycieczki</h1>
-<a href="/holiday/showForm">Dodaj Wycieczke</a><br/>
-<a href="/admin">Wróć</a><br/><br/>
 <div class="mainContainer">
     <c:if test="${holidays.size() > 0}">
         <table class="holidayList">
@@ -56,8 +31,6 @@
                     <td class="field">${holiday.daysAmount}</td>
                     <td class="field">
                         <a href="/holiday/${holiday.id}">Szczegóły</a>
-                        <a href="/holiday/updateForm/${holiday.id}">Edytuj</a>
-                        <a href="/holiday/${holiday.id}/delete">Usuń</a>
                     </td>
                 </tr>
             </c:forEach>

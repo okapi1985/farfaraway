@@ -50,8 +50,18 @@ public class HolidayService {
         return holidayRepository.save(holidayToUpdate);
     }
 
-    public List<Holiday> search(String phrase) {
+    public List<Holiday> searchByCity(String phrase) {
 
-        return holidayRepository.search(phrase);
+        return holidayRepository.searchByCity(phrase);
     }
+
+    public List<Holiday> searchByCountry(String phrase) {
+
+        return holidayRepository.searchByCountry(phrase);
+    }
+
+//    public Holiday findPromoted(Long id) {
+//
+//        return holidayRepository.findById(id);
+//    }
 }
