@@ -11,6 +11,7 @@ import pl.andrzejgolian.farfaraway.role.CustomCustomerDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final static String staticResource = "/resources/**";
     private final PasswordEncoder passwordEncoder =
             PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final CustomCustomerDetailsService customCustomerDetailsService;
@@ -30,9 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/farfaraway").permitAll()
-//                .antMatchers("/customer/createCustomer").permitAll()
+                .antMatchers(staticResource).permitAll()
+//                .antMatchers("/farfaraway").hasRole("CUSTOMER")
+//                .antMatchers("/holiday/**").permitAll()
                 .antMatchers("/customer/**").permitAll()
+                .antMatchers("/intro").permitAll()
+//                .antMatchers("/customer/showCustomerForm").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
 //                .antMatchers("/main/registration").permitAll()
                 .anyRequest().authenticated()
@@ -40,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/farfaraway")
+                .logoutSuccessUrl("/intro")
                 .permitAll();
 
         http.csrf().disable();

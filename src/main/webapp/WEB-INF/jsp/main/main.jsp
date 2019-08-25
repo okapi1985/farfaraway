@@ -1,22 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Farfaraway</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/static/style.css">
 </head>
 <body>
-<div id="container">
-    <div id="logo">
+<div class="container">
+    <div class="logo">
         <h1>Witaj w farfaraway app</h1>
+        <sec:authorize access="isAuthenticated()">
+        <h4>Jesteś zalogowany jako <sec:authentication property="name"/><h4/>
+            </sec:authorize>
     </div>
-    <div id="nav">
+    <div class="nav">
         <button>
-            <a href="/admin">Zaloguj do serwisu</a>
+            <a href="<c:url value="/logout" />">Wyloguj mnie</a>
         </button>
         <br/><br/>
-        <button>
-            <a href="/customer/showCustomerForm">Zarejestruj</a>
-        </button>
+        <sec:authorize access="hasRole('ADMIN')">
+            <button>
+                <a href="/admin">Panel administratora</a>
+            </button>
+        </sec:authorize>
         <br/><br/>
         <div class="browser">
             <form method="get" action="/holiday/foundWhere">
@@ -40,12 +47,12 @@
             </form>
         </div>
     </div>
-    <div id="content">
+    <div class="content">
     </div>
     <a href="https://www.google.com/">
-        <div id="ad"></div>
+        <div class="ad"></div>
     </a>
-    <div id="footer">Farfarawawy &copy;Wszelkie prawa zastrzeżone</div>
+    <div class="footer">Farfarawawy &copy;Wszelkie prawa zastrzeżone</div>
 </div>
 </body>
 </html>

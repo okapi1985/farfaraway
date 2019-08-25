@@ -4,29 +4,6 @@
 <head>
     <title>Lista wycieczek</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/static/style.css">
-    <style>
-        /*.head {*/
-        /*    border: 1px solid black;*/
-        /*    padding: 20px;*/
-        /*}*/
-
-        /*.field {*/
-        /*    background-color: #626360;*/
-        /*    border: 1px solid black;*/
-        /*    padding: 20px;*/
-        /*}*/
-
-        /*.holidayList {*/
-        /*    border-collapse: collapse;*/
-        /*    background-color: #ff1a10;*/
-        /*    color: #fff;*/
-        /*}*/
-
-        /*.mainContainer {*/
-        /*    width: 80%;*/
-        /*    margin: 0 auto;*/
-        /*}*/
-    </style>
 </head>
 <body>
 <h1>Wycieczki</h1>
